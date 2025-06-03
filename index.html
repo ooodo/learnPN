@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <title>ظلان - تعليم بايثون من الصفر إلى الاحتراف</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <meta
+      name="description"
+      content="تعلم بايثون من الصفر حتى الاحتراف مع ظلان - دروس تفاعلية، فيديو، اختبارات، نقاط، شارات، تقدم شخصي."
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #0077b6;
+        --secondary: #03045e;
+        --accent: #f9c846;
+        --bg: #f4faff;
+        --radius: 16px;
+        --success: #27ae60;
+        --danger: #c0392b;
+        --progress: #48cae4;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Cairo", Arial, sans-serif;
+        background: var(--bg);
+        color: var(--secondary);
+        scroll-behavior: smooth;
+      }
+      body {
+        min-height: 100vh;
+      }
+      header {
+        background: var(--secondary);
+        color: #fff;
+        position: sticky;
+        top: 0;
+        z-index: 99;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
+      }
+      .navbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0.8rem 1.2rem;
+      }
+      .logo {
+        font-size: 2.2rem;
+        font-weight: 800;
+        letter-spacing: 1px;
+        color: var(--accent);
+        display: flex;
+        align-items: center;
+        gap: 7px;
+      }
+      .logo .material-icons {
+        font-size: 2.2rem;
+        color: #fff;
+        background: var(--primary);
+        border-radius: 50%;
+        padding: 4px;
+      }
+      .navbar nav {
+        display: flex;
+        gap: 1.4rem;
+      }
+      .navbar nav a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 1.08rem;
+        padding: 0.33rem 1.1rem;
+        border-radius: var(--radius);
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        transition: background 0.2s;
+      }
+      .navbar nav a:hover,
+      .navbar nav a.active {
+        background: var(--primary);
+        color: #fff !important;
+      }
+      .menu-toggle {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+      }
+      .menu-toggle span {
+        display: block;
+        width: 28px;
+        height: 4px;
+        background: #fff;
+        margin: 4px 0;
+        border-radius: 3px;
+      }
+      /* Hero */
+      .hero {
+        background: linear-gradient(
+          135deg,
+          var(--primary) 60%,
+          var(--secondary) 100%
+        );
+        color: #fff;
+        padding: 78px 0 60px 0;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero .material-icons {
+        font-size: 5.2rem;
+        color: #fff;
+        margin-bottom: 18px;
+        opacity: 0.85;
+        text-shadow: 0 9px 35px #3334;
+      }
+      .hero h1 {
+        font-size: 3.1rem;
+        margin: 0 0 20px 0;
+        font-weight: 900;
+        letter-spacing: 1px;
+        line-height: 1.25;
+      }
+      .hero p {
+        font-size: 1.3rem;
+        margin-bottom: 34px;
+      }
+      .hero .cta-btn {
+        background: #fff;
+        color: var(--primary);
+        border: none;
+        padding: 14px 38px;
+        font-size: 1.17rem;
+        border-radius: var(--radius);
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.2s, color 0.2s;
+        box-shadow: 0 2px 16px #0001;
+      }
+      .hero .cta-btn:hover {
+        background: var(--secondary);
+        color: #fff;
+      }
+      .hero .hero-py-logo {
+        position: absolute;
+        left: 24px;
+        top: 20px;
+        opacity: 0.19;
+        font-size: 8rem;
+        pointer-events: none;
+        z-index: 1;
+        transition: opacity 0.5s;
+      }
+      @media (max-width: 600px) {
+        .hero .hero-py-logo {
+          left: 7px;
+          top: 8px;
+          font-size: 5.2rem;
+        }
+        .hero h1 {
+          font-size: 2rem;
+        }
+      }
+      /* Progress bar */
+      .progress-container {
+        width: 100%;
+        margin: 24px 0 12px 0;
+      }
+      .progress-labels {
+        display: flex;
+        justify-content: space-between;
+        font-size: 1rem;
+        color: #555;
+        margin-bottom: 4px;
+        font-weight: 700;
+      }
+      .progress-bar-bg {
+        background: #e3e9f5;
+        border-radius: var(--radius);
+        height: 18px;
+        width: 100%;
+        overflow: hidden;
+      }
+      .progress-bar {
+        height: 100%;
+        border-radius: var(--radius);
+        background: linear-gradient(90deg, var(--progress), var(--primary) 85%);
+        transition: width 0.4s;
+        width: 0;
+      }
+      .progress-percent {
+        text-align: center;
+        color: var(--primary);
+        font-weight: bold;
+        margin-top: 8px;
+        font-size: 1.08rem;
+      }
+      .level-badges {
+        display: flex;
+        gap: 12px;
+        margin-top: 16px;
+        justify-content: center;
+      }
+      .level-badge {
+        background: var(--bg);
+        color: var(--primary);
+        border-radius: var(--radius);
+        padding: 7px 18px;
+        font-size: 1.12rem;
+        font-weight: bold;
+        box-shadow: 0 1px 10px #0001;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        transition: background 0.2s, color 0.2s;
+      }
+      .level-badge.active,
+      .level-badge.earned {
+        background: var(--primary);
+        color: #fff;
+      }
+      .level-badge .material-icons {
+        font-size: 1.15rem;
+        vertical-align: middle;
+      }
+      /* Main Section */
+      .main-content {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 45px;
+      }
+      .sidebar {
+        min-width: 220px;
+        max-width: 300px;
+        width: 26%;
+        background: #fff;
+        border-radius: var(--radius);
+        box-shadow: 0 2px 16px #0001;
+        padding: 24px 20px 38px 20px;
+        margin-bottom: 30px;
+        position: sticky;
+        top: 100px;
+        align-self: flex-start;
+      }
+      .sidebar h3 {
+        color: var(--primary);
+        margin-top: 0;
+        margin-bottom: 12px;
+        font-size: 1.21rem;
+      }
+      .lesson-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .lesson-list li {
+        margin-bottom: 10px;
+      }
+      .lesson-link {
+        color: var(--secondary);
+        background: #f8fafc;
+        border-radius: var(--radius);
+        padding: 9px 14px;
+        font-size: 1.08rem;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        text-decoration: none;
+        font-weight: 500;
+        transition: background 0.2s, color 0.2s;
+      }
+      .lesson-link:hover,
+      .lesson-link.active {
+        background: var(--primary);
+        color: #fff;
+      }
+      .lesson-link .material-icons {
+        font-size: 1.15rem;
+        color: var(--primary);
+        margin-left: 3px;
+        transition: color 0.2s;
+      }
+      .lesson-link.active .material-icons,
+      .lesson-link:hover .material-icons {
+        color: #fff;
+      }
+      .lesson-link.done {
+        font-weight: bold;
+      }
+      /* درس */
+      .lesson-content {
+        flex: 1 1 420px;
+        min-width: 0;
+        background: #fff;
+        border-radius: var(--radius);
+        box-shadow: 0 2px 16px #0001;
+        padding: 30px 24px 38px 24px;
+        margin-bottom: 30px;
+        position: relative;
+      }
+      .lesson-content h2 {
+        color: var(--primary);
+        font-size: 1.5rem;
+        margin-bottom: 18px;
+        text-align: right;
+      }
+      .lesson-content pre {
+        background: #262626;
+        color: #f4faff;
+        padding: 16px;
+        border-radius: var(--radius);
+        font-family: "Cairo", "Consolas", monospace;
+        font-size: 1.09rem;
+        margin-bottom: 18px;
+        overflow-x: auto;
+      }
+      .lesson-content code {
+        background: #f7f3e9;
+        color: var(--primary);
+        border-radius: 6px;
+        padding: 2px 6px;
+      }
+      .lesson-content ul,
+      .lesson-content ol {
+        margin: 10px 0 18px 0;
+        padding-right: 22px;
+      }
+      .lesson-content .lesson-actions {
+        display: flex;
+        gap: 18px;
+        margin-top: 24px;
+      }
+      .lesson-content .lesson-actions button {
+        background: var(--primary);
+        color: #fff;
+        border: none;
+        border-radius: var(--radius);
+        padding: 11px 30px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.2s;
+        box-shadow: 0 2px 14px #0001;
+      }
+      .lesson-content .lesson-actions button:disabled {
+        background: #d1d1d1;
+        color: #888;
+        cursor: not-allowed;
+      }
+      .lesson-content .lesson-actions button:hover:enabled {
+        background: var(--accent);
+        color: var(--secondary);
+      }
+      /* اختبار */
+      .quiz-question {
+        margin-bottom: 26px;
+      }
+      .quiz-options {
+        display: flex;
+        flex-direction: column;
+        gap: 13px;
+        margin-bottom: 14px;
+      }
+      .quiz-option {
+        background: #f8fafc;
+        color: #222;
+        border-radius: var(--radius);
+        padding: 10px 14px;
+        font-size: 1.08rem;
+        border: 2px solid transparent;
+        cursor: pointer;
+        text-align: right;
+        outline: none;
+        transition: background 0.2s, border 0.2s;
+      }
+      .quiz-option.selected {
+        border: 2px solid var(--primary);
+        background: #e0f7fa;
+      }
+      .quiz-option.correct {
+        border: 2px solid var(--success);
+        background: #eafaf1;
+        color: var(--success);
+      }
+      .quiz-option.incorrect {
+        border: 2px solid var(--danger);
+        background: #fff0f0;
+        color: var(--danger);
+      }
+      .quiz-feedback {
+        font-size: 1.13rem;
+        margin-bottom: 16px;
+        font-weight: bold;
+      }
+      .quiz-feedback.success {
+        color: var(--success);
+      }
+      .quiz-feedback.error {
+        color: var(--danger);
+      }
+      .quiz-next-btn {
+        background: var(--primary);
+        color: #fff;
+        border: none;
+        padding: 10px 28px;
+        border-radius: var(--radius);
+        font-size: 1.1rem;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 1px 8px #0001;
+        transition: background 0.2s;
+        margin-top: 10px;
+      }
+      .quiz-next-btn:hover {
+        background: var(--success);
+      }
+      .quiz-result {
+        text-align: center;
+        color: var(--primary);
+        font-size: 1.35rem;
+        margin: 36px 0 15px 0;
+        font-weight: bold;
+      }
+      .quiz-retry-btn {
+        background: var(--danger);
+        color: #fff;
+        border: none;
+        border-radius: var(--radius);
+        padding: 10px 22px;
+        font-size: 1.08rem;
+        cursor: pointer;
+        transition: background 0.2s;
+        margin-top: 10px;
+      }
+      .quiz-retry-btn:hover {
+        background: var(--secondary);
+      }
+      .lesson-content .points-badge {
+        background: var(--success);
+        color: #fff;
+        border-radius: 20px;
+        padding: 5px 20px;
+        font-size: 1.08rem;
+        font-weight: bold;
+        display: inline-block;
+        margin-bottom: 20px;
+        box-shadow: 0 1px 8px #0001;
+      }
+      /* شارة */
+      .badge-earned {
+        background: var(--accent);
+        color: var(--secondary);
+        border-radius: 50px;
+        padding: 7px 22px;
+        font-size: 1.05rem;
+        font-weight: bold;
+        margin: 0 7px;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        box-shadow: 0 1px 8px #0002;
+      }
+      /* شريط تقدم جانبي للموبايل */
+      @media (max-width: 900px) {
+        .main-content {
+          flex-direction: column;
+          gap: 0;
+        }
+        .sidebar {
+          width: 100%;
+          max-width: 100%;
+          min-width: 0;
+          position: static;
+          margin-bottom: 16px;
+        }
+      }
+      @media (max-width: 600px) {
+        .navbar {
+          flex-direction: column;
+          align-items: flex-start;
+          padding: 0.7rem 0.55rem;
+        }
+        .navbar nav {
+          flex-direction: column;
+          width: 100%;
+          display: none;
+          gap: 0;
+        }
+        .navbar nav.show {
+          display: flex;
+        }
+        .navbar nav a {
+          padding: 0.7rem 0.4rem;
+          width: 100%;
+        }
+        .menu-toggle {
+          display: flex;
+          margin-right: 0.5rem;
+        }
+      }
+      /* Footer */
+      footer {
+        background: var(--secondary);
+        color: #fff;
+        text-align: center;
+        padding: 18px 0;
+        font-size: 1.05rem;
+        margin-top: 40px;
+        letter-spacing: 0.5px;
+      }
+      /* زر واتساب عائم */
+      .whatsapp-float {
+        position: fixed;
+        left: 18px;
+        bottom: 18px;
+        z-index: 99;
+      }
+      .whatsapp-btn {
+        background: #25d366;
+        color: #fff;
+        border: none;
+        border-radius: 50%;
+        width: 64px;
+        height: 64px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.7rem;
+        box-shadow: 0 2px 16px #2223;
+        cursor: pointer;
+        transition: background 0.2s, transform 0.1s;
+      }
+      .whatsapp-btn:hover {
+        background: #128c7e;
+        transform: scale(1.11);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="navbar">
+        <span class="logo"
+          ><span class="material-icons">emoji_objects</span> ظلان</span
+        >
+        <div class="menu-toggle" onclick="toggleMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <nav id="main-nav">
+          <a href="#home" class="active"
+            ><span class="material-icons" style="font-size: 1.1rem">home</span
+            >الرئيسية</a
+          >
+          <a href="#python"
+            ><span class="material-icons" style="font-size: 1.1rem">code</span
+            >تعليم بايثون</a
+          >
+          <a href="#progress"
+            ><span class="material-icons" style="font-size: 1.1rem">star</span
+            >تقدمك</a
+          >
+          <a href="#contact"
+            ><span class="material-icons" style="font-size: 1.1rem">mail</span
+            >تواصل</a
+          >
+        </nav>
+      </div>
+    </header>
+
+    <section class="hero" id="home">
+      <span class="material-icons">python</span>
+      <h1>
+        تعلم بايثون من الصفر إلى الاحتراف مع
+        <span style="color: #ffe">ظلان</span>
+      </h1>
+      <p>
+        ابدأ رحلتك البرمجية مع أقوى منصة عربية تفاعلية لتعليم بايثون. دروس -
+        تمارين - اختبارات - نظام نقاط - شارات - تقدم شخصي - دعم سريع.
+      </p>
+      <button
+        class="cta-btn"
+        onclick="document.getElementById('python').scrollIntoView({behavior:'smooth'})"
+      >
+        ابدأ تعليم بايثون الآن
+      </button>
+      <span class="material-icons hero-py-logo">python</span>
+    </section>
+
+    <!-- شريط تقدم ونقاط -->
+    <section id="progress">
+      <h2>تقدمك في تعلم بايثون</h2>
+      <div class="progress-container">
+        <div class="progress-labels">
+          <span>الدروس المنجزة</span>
+          <span id="badge-points"></span>
+        </div>
+        <div class="progress-bar-bg">
+          <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        <div class="progress-percent" id="progress-percent"></div>
+        <div class="level-badges" id="level-badges">
+          <!-- شارات الإنجاز تظهر هنا -->
+        </div>
+      </div>
+    </section>
+
+    <!-- تعليم بايثون الأساسي -->
+    <section id="python">
+      <h2>
+        <span
+          class="material-icons"
+          style="vertical-align: -4px; color: var(--primary)"
+          >python</span
+        >تعليم بايثون التفاعلي
+      </h2>
+      <div class="main-content">
+        <!-- الشريط الجانبي للدروس -->
+        <aside class="sidebar">
+          <h3>
+            <span class="material-icons" style="font-size: 1.1rem"
+              >menu_book</span
+            >دروس بايثون
+          </h3>
+          <ul class="lesson-list" id="lesson-list">
+            <!-- الدروس تظهر هنا تلقائيا -->
+          </ul>
+        </aside>
+        <!-- محتوى الدرس أو الاختبار -->
+        <div class="lesson-content" id="lesson-content">
+          <!-- الدرس يظهر هنا -->
+        </div>
+      </div>
+    </section>
+
+    <!-- زر التواصل السريع واتساب -->
+    <a
+      class="whatsapp-float"
+      href="https://wa.me/967774722964"
+      title="تواصل واتساب"
+      target="_blank"
+    >
+      <span class="whatsapp-btn material-icons">whatsapp</span>
+    </a>
+
+    <section id="contact">
+      <h2>تواصل معنا</h2>
+      <form class="contact-form" id="contactForm" autocomplete="off">
+        <input type="text" name="name" placeholder="الاسم الكامل" required />
+        <input
+          type="email"
+          name="email"
+          placeholder="البريد الإلكتروني"
+          required
+        />
+        <textarea
+          name="message"
+          placeholder="رسالتك أو استفسارك"
+          required
+        ></textarea>
+        <button type="submit">
+          <span class="material-icons" style="vertical-align: middle"
+            >send</span
+          >
+          إرسال
+        </button>
+        <div id="formMsg"></div>
+      </form>
+    </section>
+
+    <footer>
+      جميع الحقوق محفوظة &copy; ظلان 2025 | منصة تعليم بايثون من الصفر إلى
+      الاحتراف
+    </footer>
+
+    <script>
+      // دروس بايثون نصية وفيديو + اختبارات
+      const lessons = [
+        {
+          id: 0,
+          title: "مقدمة عن لغة بايثون",
+          content: `
+                <div class="points-badge"><span class="material-icons">star</span> +10 نقاط</div>
+                <p>بايثون من أسهل لغات البرمجة وأكثرها استخدامًا عالميًا.</p>
+                <ul>
+                    <li>أول ظهور لها سنة 1991.</li>
+                    <li>سهلة القراءة.</li>
+                    <li>تستخدم في الذكاء الاصطناعي، الويب، الألعاب...</li>
+                </ul>
+            `,
+          video: "https://www.youtube.com/embed/rfscVS0vtbw",
+          quiz: {
+            question: "لماذا تعتبر بايثون لغة برمجة مشهورة؟",
+            options: [
+              "لأنها صعبة ومعقدة",
+              "لأنها سهلة ومناسبة لجميع المجالات",
+              "لأنها لغة قديمة فقط",
+            ],
+            answer: 1,
+          },
+        },
+        {
+          id: 1,
+          title: "تثبيت بايثون على جهازك",
+          content: `
+                <div class="points-badge"><span class="material-icons">star</span> +10 نقاط</div>
+                <ol>
+                    <li>ادخل <a href="https://python.org" target="_blank">python.org</a></li>
+                    <li>حمّل النسخة المناسبة لنظامك</li>
+                    <li>ثبّت البرنامج كأي برنامج آخر</li>
+                </ol>
+            `,
+          video: "https://www.youtube.com/embed/Uh2ebFW8OYM",
+          quiz: {
+            question: "من أين يمكن تحميل بايثون؟",
+            options: ["python.org", "google.com", "facebook.com"],
+            answer: 0,
+          },
+        },
+        {
+          id: 2,
+          title: "تشغيل أول برنامج بايثون",
+          content: `
+                <div class="points-badge"><span class="material-icons">star</span> +10 نقاط</div>
+                <p>افتح برنامج IDLE أو VSCode واكتب:</p>
+                <pre>print("Hello, Python!")</pre>
+                <p>شغّل البرنامج وستشاهد النتيجة.</p>
+            `,
+          video: "https://www.youtube.com/embed/ERCMXc8x7mc",
+          quiz: {
+            question: "أي أمر يطبع نص على الشاشة؟",
+            options: ["echo()", "print()", "output()"],
+            answer: 1,
+          },
+        },
+        {
+          id: 3,
+          title: "المتغيرات وأنواع البيانات",
+          content: `
+                <div class="points-badge"><span class="material-icons">star</span> +12 نقاط</div>
+                <ul>
+                    <li>int: أعداد صحيحة</li>
+                    <li>float: أعداد عشرية</li>
+                    <li>str: نصوص</li>
+                    <li>bool: منطقية (True/False)</li>
+                </ul>
+                <pre>
+name = "سارة"
+age = 20
+is_student = True
+                </pre>
+            `,
+          quiz: {
+            question: "ما نوع المتغير <code>x = 2.5</code>؟",
+            options: ["int", "float", "str"],
+            answer: 1,
+          },
+        },
+        {
+          id: 4,
+          title: "عمليات رياضية وتخصيص متغيرات",
+          content: `
+                <div class="points-badge"><span class="material-icons">star</span> +12 نقاط</div>
+                <pre>
+a = 10
+b = 3
+print(a + b)  # جمع
+print(a * b)  # ضرب
+print(a / b)  # قسمة
+print(a % b)  # باقي القسمة
+                </pre>
+            `,
+          quiz: {
+            question: "ما نتيجة <code>7 % 3</code>؟",
+            options: ["1", "2", "3"],
+            answer: 1,
+          },
+        },
+        {
+          id: 5,
+          title: "تعليقات الكود",
+          content: `
+                <div class="points-badge"><span class="material-icons">star</span> +8 نقاط</div>
+                <p>أي نص بعد علامة <code>#</code> يعتبر تعليقًا ولا ينفذ.</p>
+                <pre>
+# هذا تعليق
+print("مرحبًا")  # هذا أيضا تعليق
+                </pre>
+            `,
+          quiz: {
+            question: "ما فائدة التعليقات في الكود؟",
+            options: ["تجعل الكود أسرع", "توضح الكود للمبرمجين", "تشغل الكود"],
+            answer: 1,
+          },
+        },
+        {
+          id: 6,
+          title: "مدخلات المستخدم",
+          content: `
+                <div class="points-badge"><span class="material-icons">star</span> +10 نقاط</div>
+                <pre>
+name = input("ما اسمك؟ ")
+print("أهلاً", name)
+                </pre>
+            `,
+          quiz: {
+            question: "أي دالة تحصل على مدخل من المستخدم؟",
+            options: ["input()", "read()", "get()"],
+            answer: 0,
+          },
+        },
+        {
+          id: 7,
+          title: "الشروط (if / elif / else)",
+          content: `
+                <div class="points-badge"><span class="material-icons">star</span> +14 نقاط</div>
+                <pre>
+age = 18
+if age >= 18:
+    print("بالغ")
+else:
+    print("قاصر")
+                </pre>
+            `,
+          quiz: {
+            question: "أي من التالي جملة شرطية صحيحة؟",
+            options: [
+              'if x > 0: print("ok")',
+              'if x > 0 then print("ok")',
+              'if x > 0 { print("ok") }',
+            ],
+            answer: 0,
+          },
+        },
+        {
+          id: 8,
+          title: "الحلقات (for)",
+          content: `
+                <div class="points-badge"><span class="material-icons">star</span> +14 نقاط</div>
+                <pre>
+for i in range(5):
+    print(i)
+                </pre>
+                <p>تطبع: 0 1 2 3 4</p>
+            `,
+          quiz: {
+            question: "كم مرة سينفذ الكود <code>for i in range(3):</code>؟",
+            options: ["2 مرات", "3 مرات", "4 مرات"],
+            answer: 1,
+          },
+        },
+        {
+          id: 9,
+          title: "الحلقات (while)",
+          content: `
+                <div class="points-badge"><span class="material-icons">star</span> +12 نقاط</div>
+                <pre>
+count = 0
+while count < 3:
+    print(count)
+    count += 1
+                </pre>
+            `,
+          quiz: {
+            question: "متى تتوقف حلقة while؟",
+            options: [
+              "عندما يتحقق الشرط",
+              "عندما لا يتحقق الشرط",
+              "بعد 5 مرات دائمًا",
+            ],
+            answer: 1,
+          },
+        },
+        {
+          id: 10,
+          title: "الدوال (functions)",
+          content: `
+                <div class="points-badge"><span class="material-icons">star</span> +15 نقاط</div>
+                <pre>
+def say_hello():
+    print("أهلاً!")
+say_hello()
+                </pre>
+            `,
+          quiz: {
+            question: "كيف تنشئ دالة في بايثون؟",
+            options: ["def myfunc():", "function myfunc()", "create myfunc()"],
+            answer: 0,
+          },
+        },
+        {
+          id: 11,
+          title: "القوائم (lists)",
+          content: `
+                <div class="points-badge"><span class="material-icons">star</span> +12 نقاط</div>
+                <pre>
+names = ["علي", "سارة", "محمد"]
+print(names[0])  # علي
+                </pre>
+            `,
+          quiz: {
+            question: "كم عنصر في القائمة <code>[1,2,3]</code>؟",
+            options: ["2", "3", "4"],
+            answer: 1,
+          },
+        },
+        {
+          id: 12,
+          title: "القواميس (dict)",
+          content: `
+                <div class="points-badge"><span class="material-icons">star</span> +12 نقاط</div>
+                <pre>
+person = {"name": "أحمد", "age": 22}
+print(person["name"])
+                </pre>
+            `,
+          quiz: {
+            question: "كيف نحصل على قيمة 'age' في القاموس؟",
+            options: ['person["age"]', "person.age", "person[age]"],
+            answer: 0,
+          },
+        },
+        {
+          id: 13,
+          title: "سلاسل النصوص (Strings)",
+          content: `
+                <div class="points-badge"><span class="material-icons">star</span> +10 نقاط</div>
+                <pre>
+text = "Hello"
+print(text.upper())
+print(text[1])  # e
+                </pre>
+            `,
+          quiz: {
+            question: "ما نتيجة <code>'hi'.upper()</code>؟",
+            options: ["HI", "hi", "Hi"],
+            answer: 0,
+          },
+        },
+        {
+          id: 14,
+          title: "دالة range و enumerate",
+          content: `
+                <div class="points-badge"><span class="material-icons">star</span> +8 نقاط</div>
+                <pre>
+for i in range(3, 7):
+    print(i)
+                </pre>
+                <pre>
+for idx, val in enumerate(['a','b']):
+    print(idx, val)
+                </pre>
+            `,
+          quiz: {
+            question: "ما نتيجة <code>range(2,5)</code>؟",
+            options: ["2,3,4,5", "2,3,4", "3,4,5"],
+            answer: 1,
+          },
+        },
+        {
+          id: 15,
+          title: "التعامل مع الملفات",
+          content: `
+                <div class="points-badge"><span class="material-icons">star</span> +14 نقاط</div>
+                <pre>
+with open('file.txt','w') as f:
+    f.write("مرحبًا")
+                </pre>
+            `,
+          video: "https://www.youtube.com/embed/Uh2ebFW8OYM",
+          quiz: {
+            question: "أي أمر يفتح ملف للكتابة؟",
+            options: [
+              "open('file.txt','w')",
+              "open('file.txt','r')",
+              "open('file.txt','a')",
+            ],
+            answer: 0,
+          },
+        },
+        {
+          id: 16,
+          title: "الاستثناءات (Exceptions)",
+          content: `
+                <div class="points-badge"><span class="material-icons">star</span> +12 نقاط</div>
+                <pre>
+try:
+    x = 1 / 0
+except ZeroDivisionError:
+    print("خطأ في القسمة")
+                </pre>
+            `,
+          quiz: {
+            question: "في ماذا تستخدم try/except؟",
+            options: ["تنفيذ الكود بشكل أسرع", "معالجة الأخطاء", "تكرار الكود"],
+            answer: 1,
+          },
+        },
+        {
+          id: 17,
+          title: "الوحدات (Modules)",
+          content: `
+                <div class="points-badge"><span class="material-icons">star</span> +12 نقاط</div>
+                <pre>
+import math
+print(math.sqrt(16))
+                </pre>
+            `,
+          quiz: {
+            question: "ما فائدة modules؟",
+            options: ["تنظيم الكود", "إضافة إمكانيات جديدة", "كل ما سبق"],
+            answer: 2,
+          },
+        },
+        {
+          id: 18,
+          title: "مكتبة random",
+          content: `
+                <div class="points-badge"><span class="material-icons">star</span> +10 نقاط</div>
+                <pre>
+import random
+print(random.randint(1,10))
+                </pre>
+            `,
+          quiz: {
+            question: "أي مكتبة لإنتاج أرقام عشوائية؟",
+            options: ["random", "math", "os"],
+            answer: 0,
+          },
+        },
+        {
+          id: 19,
+          title: "مشروع صغير: آلة جمع بسيطة",
+          content: `
+                <div class="points-badge"><span class="material-icons">emoji_events</span> +20 نقاط</div>
+                <p><b>تحدي:</b> أنشئ برنامج يطلب رقمين من المستخدم ويطبع مجموعهما.</p>
+                <pre>
+a = int(input("أدخل الرقم الأول: "))
+b = int(input("أدخل الرقم الثاني: "))
+print("المجموع:", a+b)
+                </pre>
+            `,
+          video: "https://www.youtube.com/embed/8ext9G7xspg",
+          quiz: {
+            question: "ما نوع الدالة input؟",
+            options: [
+              "ترجع نصًا",
+              "ترجع عددًا صحيحًا",
+              "ترجع قيمة من المستخدم مباشرة",
+            ],
+            answer: 0,
+          },
+        },
+        {
+          id: 20,
+          title: "مشروع نهائي: برنامج آلة حاسبة",
+          content: `
+                <div class="points-badge"><span class="material-icons">emoji_events</span> +30 نقاط</div>
+                <p>أنشئ برنامج آلة حاسبة بسيطة تجمع وتطرح وتضرب وتقسم رقمين.</p>
+                <pre>
+a = float(input("أدخل الرقم الأول: "))
+b = float(input("أدخل الرقم الثاني: "))
+op = input("اختر العملية (+ - * /): ")
+
+if op == "+":
+    print(a + b)
+elif op == "-":
+    print(a - b)
+elif op == "*":
+    print(a * b)
+elif op == "/":
+    print(a / b)
+else:
+    print("عملية غير معروفة")
+                </pre>
+            `,
+          video: "https://www.youtube.com/embed/kqtD5dpn9C8",
+          quiz: {
+            question: "أي شرط يتحقق عند القسمة؟",
+            options: ["op == '-'", "op == '/'", "op == '*'"],
+            answer: 1,
+          },
+        },
+      ];
+
+      // شارات الإنجاز
+      const badges = [
+        { min: 10, label: "مبتدئ بايثون", icon: "workspace_premium" },
+        { min: 55, label: "متعلم نشيط", icon: "emoji_events" },
+        { min: 90, label: "متمكن", icon: "star" },
+        { min: 150, label: "محترف بايثون", icon: "verified" },
+      ];
+
+      let userState = {
+        completed: Array(lessons.length).fill(false),
+        points: 0,
+        badges: [],
+        currentLesson: 0,
+      };
+      if (localStorage.getItem("zpy_user")) {
+        userState = JSON.parse(localStorage.getItem("zpy_user"));
+      }
+
+      function renderLessonList() {
+        const ul = document.getElementById("lesson-list");
+        ul.innerHTML = "";
+        for (let i = 0; i < lessons.length; i++) {
+          const li = document.createElement("li");
+          const a = document.createElement("a");
+          a.href = "#";
+          a.className =
+            "lesson-link" +
+            (userState.completed[i] ? " done" : "") +
+            (userState.currentLesson === i ? " active" : "");
+          a.dataset.lesson = i;
+          a.innerHTML = `<span class="material-icons">${
+            userState.completed[i] ? "check_circle" : "chevron_right"
+          }</span> ${lessons[i].title}`;
+          a.onclick = (e) => {
+            e.preventDefault();
+            openLesson(i);
+          };
+          li.appendChild(a);
+          ul.appendChild(li);
+        }
+      }
+
+      function openLesson(idx) {
+        userState.currentLesson = idx;
+        renderLessonList();
+        renderLessonContent(idx);
+        saveState();
+        scrollToLesson();
+      }
+
+      function scrollToLesson() {
+        setTimeout(() => {
+          let el = document.getElementById("lesson-content");
+          if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 120);
+      }
+
+      function renderLessonContent(idx) {
+        const lesson = lessons[idx];
+        let html = `<h2>${lesson.title}</h2>`;
+        if (lesson.video) {
+          html += `<div style="text-align:center;margin-bottom:16px;">
+                <iframe width="98%" height="230" style="max-width:420px;border-radius:16px;" src="${lesson.video}" frameborder="0" allowfullscreen></iframe>
+            </div>`;
+        }
+        html += lesson.content;
+        if (!userState.completed[idx]) {
+          html += `<div class="lesson-actions"><button onclick="startQuiz(${idx})">ابدأ اختبار الدرس <span class="material-icons" style="font-size:1rem;vertical-align:-3px;">quiz</span></button></div>`;
+        } else {
+          html += `<div class="lesson-actions"><button onclick="startQuiz(${idx})" style="background:var(--progress);color:var(--secondary);"><span class="material-icons" style="font-size:1rem;vertical-align:-3px;">quiz</span> إعادة اختبار الدرس</button>
+            <button onclick="gotoNextLesson()" ${
+              idx === lessons.length - 1 ? "disabled" : ""
+            }><span class="material-icons" style="font-size:1rem;vertical-align:-3px;">navigate_next</span> الدرس التالي</button>
+            </div>`;
+        }
+        document.getElementById("lesson-content").innerHTML = html;
+      }
+
+      function startQuiz(idx) {
+        const quiz = lessons[idx].quiz;
+        let html = `<h2><span class="material-icons" style="vertical-align:-5px;color:var(--primary)">quiz</span> اختبار الدرس</h2>`;
+        html += `<div class="quiz-question">${quiz.question}</div>`;
+        html += `<div class="quiz-options">`;
+        for (let i = 0; i < quiz.options.length; i++) {
+          html += `<div class="quiz-option" tabindex="0" onclick="selectOption(${idx},${i})" id="qopt-${i}">${quiz.options[i]}</div>`;
+        }
+        html += `</div>`;
+        html += `<div class="quiz-feedback" id="quiz-feedback"></div>`;
+        html += `<button class="quiz-next-btn" id="quiz-next-btn" onclick="submitQuiz(${idx})" disabled>تأكيد الإجابة</button>`;
+        document.getElementById("lesson-content").innerHTML = html;
+        setTimeout(() => {
+          document.getElementById("qopt-0").focus();
+        }, 200);
+      }
+      let selectedOption = null;
+
+      function selectOption(lessonIdx, optIdx) {
+        const quiz = lessons[lessonIdx].quiz;
+        selectedOption = optIdx;
+        document
+          .querySelectorAll(".quiz-option")
+          .forEach((el) => el.classList.remove("selected"));
+        document.getElementById(`qopt-${optIdx}`).classList.add("selected");
+        document.getElementById("quiz-next-btn").disabled = false;
+      }
+
+      function submitQuiz(lessonIdx) {
+        const quiz = lessons[lessonIdx].quiz;
+        const correct = selectedOption === quiz.answer;
+        let feedback = document.getElementById("quiz-feedback");
+        let pointsThisLesson = parseInt(
+          lessons[lessonIdx].content.match(/\+(\d+)/)?.[1] || "10"
+        );
+        document.querySelectorAll(".quiz-option").forEach((el, idx) => {
+          el.onclick = null;
+          el.tabIndex = -1;
+          if (idx === quiz.answer) el.classList.add("correct");
+          if (idx === selectedOption && idx !== quiz.answer)
+            el.classList.add("incorrect");
+        });
+        document.getElementById("quiz-next-btn").disabled = true;
+        if (correct) {
+          feedback.innerHTML = "إجابة صحيحة! رائع 🎉";
+          feedback.className = "quiz-feedback success";
+          if (!userState.completed[lessonIdx]) {
+            userState.completed[lessonIdx] = true;
+            userState.points += pointsThisLesson;
+            updateProgress();
+            setTimeout(() => {
+              feedback.innerHTML += `<div class='badge-earned'><span class='material-icons'>star</span> حصلت على +${pointsThisLesson} نقطة!</div>`;
+            }, 400);
+          }
+        } else {
+          feedback.innerHTML = "إجابة خاطئة! حاول مرة أخرى.";
+          feedback.className = "quiz-feedback error";
+        }
+
+        setTimeout(() => {
+          let html = `<div class="quiz-result">${
+            correct ? "ممتاز! أنهيت الدرس بنجاح." : "لم تجتز الدرس."
+          }</div>`;
+          html += `<div class="lesson-actions">`;
+          if (correct && lessonIdx < lessons.length - 1) {
+            html += `<button onclick="gotoNextLesson()"><span class="material-icons" style="font-size:1rem;vertical-align:-3px;">navigate_next</span> الدرس التالي</button>`;
+          }
+          html += `<button class="quiz-retry-btn" onclick="openLesson(${lessonIdx})"><span class="material-icons" style="font-size:1rem;vertical-align:-3px;">replay</span> ${
+            correct ? "إعادة الدرس" : "إعادة المحاولة"
+          }</button>`;
+          html += `</div>`;
+          feedback.innerHTML += html;
+          saveState();
+        }, 1100);
+      }
+
+      function gotoNextLesson() {
+        let idx = userState.currentLesson;
+        if (idx < lessons.length - 1) {
+          openLesson(idx + 1);
+        }
+      }
+
+      function updateProgress() {
+        let done = userState.completed.filter(Boolean).length;
+        let percent = Math.round((100 * done) / lessons.length);
+        document.getElementById("progress-bar").style.width = percent + "%";
+        document.getElementById(
+          "progress-percent"
+        ).textContent = `أنهيت ${done} من ${lessons.length} (${percent}%)`;
+        document.getElementById(
+          "badge-points"
+        ).innerHTML = `<span class="material-icons" style="color:var(--accent);vertical-align:-2px;font-size:1.2rem;">star</span> ${userState.points} نقطة`;
+        let earned = [];
+        for (const badge of badges) {
+          if (userState.points >= badge.min) earned.push(badge);
+        }
+        let html = "";
+        for (const badge of badges) {
+          html += `<div class="level-badge${
+            earned.includes(badge) ? " active" : ""
+          }"><span class="material-icons">${badge.icon}</span> ${
+            badge.label
+          }</div>`;
+        }
+        document.getElementById("level-badges").innerHTML = html;
+        userState.badges = earned.map((b) => b.label);
+        saveState();
+      }
+
+      function saveState() {
+        localStorage.setItem("zpy_user", JSON.stringify(userState));
+      }
+
+      function initPythonLearn() {
+        renderLessonList();
+        openLesson(userState.currentLesson || 0);
+        updateProgress();
+      }
+      window.openLesson = openLesson;
+      window.startQuiz = startQuiz;
+      window.selectOption = selectOption;
+      window.submitQuiz = submitQuiz;
+      window.gotoNextLesson = gotoNextLesson;
+
+      function toggleMenu() {
+        const nav = document.getElementById("main-nav");
+        nav.classList.toggle("show");
+      }
+      document.addEventListener("click", function (e) {
+        if (!e.target.closest(".navbar")) {
+          document.getElementById("main-nav").classList.remove("show");
+        }
+      });
+
+      const navLinks = document.querySelectorAll(".navbar nav a");
+      window.addEventListener("scroll", () => {
+        let fromTop = window.scrollY + 80;
+        navLinks.forEach((link) => {
+          const section = document.querySelector(link.getAttribute("href"));
+          if (
+            section &&
+            section.offsetTop <= fromTop &&
+            section.offsetTop + section.offsetHeight > fromTop
+          ) {
+            navLinks.forEach((l) => l.classList.remove("active"));
+            link.classList.add("active");
+          }
+        });
+      });
+
+      document
+        .getElementById("contactForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          let name = this.name.value.trim();
+          let email = this.email.value.trim();
+          let msg = this.message.value.trim();
+          let formMsg = document.getElementById("formMsg");
+
+          if (name.length < 3 || !email.includes("@") || msg.length < 5) {
+            formMsg.innerHTML =
+              '<div class="error-msg">يرجى تعبئة جميع الحقول بشكل صحيح.</div>';
+            return;
+          }
+          let waMsg = `مرحبًا، لدي استفسار من موقع ظلان بايثون:\nالاسم: ${name}\nالبريد: ${email}\nالرسالة: ${msg}`;
+          let encodedMsg = encodeURIComponent(waMsg);
+          let phone = "967774722964";
+          let waUrl = `https://wa.me/${phone}?text=${encodedMsg}`;
+          window.open(waUrl, "_blank");
+          formMsg.innerHTML =
+            '<div class="success-msg">سيتم تحويلك إلى واتساب لإرسال رسالتك.</div>';
+          this.reset();
+        });
+
+      window.onload = initPythonLearn;
+      window.gotoNextLesson = gotoNextLesson;
+    </script>
+  </body>
+</html>
